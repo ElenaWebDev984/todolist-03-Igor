@@ -1,6 +1,7 @@
 import type {FilterValues, Task} from './App'
 import {Button} from './Button'
-import {useState} from "react";
+import {ChangeEvent, useState} from "react";
+import * as React from "react";
 
 
 type Props = {
@@ -21,27 +22,42 @@ export const TodolistItem = ({
 
     const [newTitle, setNewTitle] = useState('')
 
+    // const changeFilterAllHandler = () => changeFilter('all')
+    // const changeFilterActiveHandler = () => changeFilter('active')
+    // const changeFilterCompletedHandler = () => changeFilter('completed')
+
+    const changeFilterHandler = (value: FilterValues) => {
+        changeFilter(value)
+    }
+
+    const deleteTaskHandler = (taskId: string) => {
+        deleteTask(taskId)
+    }
+
+    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => setNewTitle(e.currentTarget.value)
+
+    const addTaskHandler = () => {
+        addTask(newTitle)
+        setNewTitle('')
+    }
+
+    const onKeyDownHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            addTaskHandler()
+        }
+    }
 
 
-
-    return (
+        return (
         <div>
             <h3>{title}</h3>
             <div>
                 <input value={newTitle}
-                       onChange={(e) => setNewTitle(e.currentTarget.value)}
-                       onKeyDown={(e) => {
-                           if (e.key === 'Enter') {
-                               addTask(newTitle)
-                               setNewTitle('')
-                           }
-                       }}
+                       onChange={onChangeHandler}
+                       onKeyDown={onKeyDownHandler}
                 />
                 <Button title={'+'}
-                        onClick={() => {
-                            addTask(newTitle)
-                            setNewTitle('')
-                        }}
+                        onClick={addTaskHandler}
                 />
             </div>
             {tasks.length === 0 ? (
@@ -54,7 +70,7 @@ export const TodolistItem = ({
                                 <input type="checkbox" checked={task.isDone}/>
                                 <span>{task.title}</span>
                                 <Button title={'x'}
-                                        onClick={() => deleteTask(task.id)}
+                                        onClick={() => deleteTaskHandler(task.id)}
                                 />
                             </li>
                         )
@@ -63,13 +79,13 @@ export const TodolistItem = ({
             )}
             <div>
                 <Button title={'All'}
-                        onClick={() => changeFilter('all')}
+                        onClick={() => changeFilterHandler('all')}
                 />
                 <Button title={'Active'}
-                        onClick={() => changeFilter('active')}
+                        onClick={() => changeFilterHandler('active')}
                 />
                 <Button title={'Completed'}
-                        onClick={() => changeFilter('completed')}
+                        onClick={() => changeFilterHandler('completed')}
                 />
             </div>
         </div>
