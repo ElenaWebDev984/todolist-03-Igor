@@ -30,6 +30,12 @@ export const TodolistItem = ({
             <div>
                 <input value={newTitle}
                        onChange={(e) => setNewTitle(e.currentTarget.value)}
+                       onKeyDown={(e) => {
+                           if (e.key === 'Enter') {
+                               addTask(newTitle)
+                               setNewTitle('')
+                           }
+                       }}
                 />
                 <Button title={'+'}
                         onClick={() => {
