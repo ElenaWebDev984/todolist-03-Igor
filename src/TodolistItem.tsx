@@ -21,16 +21,26 @@ export const TodolistItem = ({
 
     const [newTitle, setNewTitle] = useState('')
 
+    const mappedTasks = tasks.map(task => {
+        const deleteTaskHandler = (taskId: string) => deleteTask(taskId)
+
+        return (
+            <li key={task.id}>
+                <input type="checkbox" checked={task.isDone}/>
+                <span>{task.title}</span>
+                <Button title={'x'}
+                        onClick={() => deleteTaskHandler(task.id)}
+                />
+            </li>
+        )
+    })
+
     // const changeFilterAllHandler = () => changeFilter('all')
     // const changeFilterActiveHandler = () => changeFilter('active')
     // const changeFilterCompletedHandler = () => changeFilter('completed')
 
     const changeFilterHandler = (value: FilterValues) => {
         changeFilter(value)
-    }
-
-    const deleteTaskHandler = (taskId: string) => {
-        deleteTask(taskId)
     }
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => setNewTitle(e.currentTarget.value)
@@ -63,17 +73,7 @@ export const TodolistItem = ({
                 <p>Тасок нет</p>
             ) : (
                 <ul>
-                    {tasks.map(task => {
-                        return (
-                            <li key={task.id}>
-                                <input type="checkbox" checked={task.isDone}/>
-                                <span>{task.title}</span>
-                                <Button title={'x'}
-                                        onClick={() => deleteTaskHandler(task.id)}
-                                />
-                            </li>
-                        )
-                    })}
+                    {mappedTasks}
                 </ul>
             )}
             <div>
