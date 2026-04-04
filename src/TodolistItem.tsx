@@ -22,7 +22,7 @@ export const TodolistItem = ({
     const [newTitle, setNewTitle] = useState('')
 
     const mappedTasks = tasks.map(task => {
-        const deleteTaskHandler = () => deleteTask(task.id)
+        const deleteTaskHandler = (taskId: string) => deleteTask(taskId)
 
         return (
             <li key={task.id}>
