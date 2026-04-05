@@ -44,18 +44,17 @@ export const TodolistItem = ({
         )
     })
 
-    // const changeFilterAllHandler = () => changeFilter('all')
-    // const changeFilterActiveHandler = () => changeFilter('active')
-    // const changeFilterCompletedHandler = () => changeFilter('completed')
 
     const changeFilterHandler = (value: FilterValues) => {
         changeFilter(value)
     }
 
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => setNewTitle(e.currentTarget.value)
+    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setNewTitle(e.currentTarget.value)
+    }
 
     const addTaskHandler = () => {
-        addTask(newTitle)
+        addTask(newTitle.trim())
         setNewTitle('')
     }
 
