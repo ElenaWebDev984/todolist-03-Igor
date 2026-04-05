@@ -25,18 +25,21 @@ export const TodolistItem = ({
     const [error, setError] = useState<string | null>(null)
     const [filter, setFilter] = useState<FilterValues>('all')
 
+    const onChangeHandler = (taskId: string, isDone: boolean) => {
+        changeIsDone(taskId, isDone)
+    }
+
     const mappedTasks = tasks.map(task => {
         const deleteTaskHandler = (taskId: string) => deleteTask(taskId)
 
-        const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-            changeIsDone(task.id, e.currentTarget.checked)
-        }
 
         return (
-            <li className={task.isDone ? 'isDone' : ''} key={task.id}>
+            <li className={task.isDone ? 'isDone' : ''}
+                key={task.id}
+            >
                 <input type="checkbox"
                        checked={task.isDone}
-                       onChange={onChangeHandler}
+                       onChange={(e) => onChangeHandler(task.id, e.currentTarget.checked)}
                 />
                 <span>{task.title}</span>
                 <Button title={'x'}
@@ -52,7 +55,7 @@ export const TodolistItem = ({
         setFilter(filter)
     }
 
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const onChangeTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setError(null)
         setNewTitle(e.currentTarget.value)
     }
@@ -79,7 +82,7 @@ export const TodolistItem = ({
             <div>
                 <input className={error ? 'error' : ''}
                        value={newTitle}
-                       onChange={onChangeHandler}
+                       onChange={onChangeTitleHandler}
                        onKeyDown={onKeyDownHandler}
                 />
                 <Button title={'+'}
