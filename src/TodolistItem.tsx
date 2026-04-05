@@ -54,8 +54,10 @@ export const TodolistItem = ({
     }
 
     const addTaskHandler = () => {
-        addTask(newTitle.trim())
-        setNewTitle('')
+        if (newTitle.trim()) {
+            addTask(newTitle.trim())
+            setNewTitle('')
+        }
     }
 
     const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
