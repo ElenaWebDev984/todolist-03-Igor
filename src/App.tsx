@@ -34,7 +34,7 @@ export const App = () => {
     const changeIsDone = (taskId: string, isDone: boolean) => {
         const currentTask = tasks.find((task) => task.id === taskId)
         if (currentTask) {
-          currentTask.isDone = isDone
+          currentTask.isDone = !currentTask.isDone;
         }
         setTasks([...tasks])
     }
