@@ -33,7 +33,7 @@ export const TodolistItem = ({
         }
 
         return (
-            <li key={task.id}>
+            <li className={task.isDone ? 'isDone' : ''} key={task.id}>
                 <input type="checkbox"
                        checked={task.isDone}
                        onChange={onChangeHandler}

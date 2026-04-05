@@ -18,3 +18,7 @@
 .activeFilter {
     background-color: lightseagreen;
 }
+
+.isDone {
+    opacity: 0.5;
+}
