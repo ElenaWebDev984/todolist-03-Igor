@@ -14,3 +14,7 @@
 .errorMessage {
     color: red;
 }
+
+.activeFilter {
+    background-color: lightseagreen;
+}

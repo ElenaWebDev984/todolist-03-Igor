@@ -23,6 +23,7 @@ export const TodolistItem = ({
 
     const [newTitle, setNewTitle] = useState('')
     const [error, setError] = useState<string | null>(null)
+    const [filter, setFilter] = useState<FilterValues>('all')
 
     const mappedTasks = tasks.map(task => {
         const deleteTaskHandler = (taskId: string) => deleteTask(taskId)
@@ -46,8 +47,9 @@ export const TodolistItem = ({
     })
 
 
-    const changeFilterHandler = (value: FilterValues) => {
-        changeFilter(value)
+    const changeFilterHandler = (filter: FilterValues) => {
+        changeFilter(filter)
+        setFilter(filter)
     }
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -95,13 +97,16 @@ export const TodolistItem = ({
                 </ul>
             )}
             <div>
-                <Button title={'All'}
+                <Button className={filter === 'all' ? 'activeFilter' : ''}
+                        title={'All'}
                         onClick={() => changeFilterHandler('all')}
                 />
-                <Button title={'Active'}
+                <Button className={filter === 'active' ? 'activeFilter' : ''}
+                        title={'Active'}
                         onClick={() => changeFilterHandler('active')}
                 />
-                <Button title={'Completed'}
+                <Button className={filter === 'completed' ? 'activeFilter' : ''}
+                        title={'Completed'}
                         onClick={() => changeFilterHandler('completed')}
                 />
             </div>
